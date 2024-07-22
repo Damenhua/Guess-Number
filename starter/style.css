@@ -7,14 +7,14 @@
 }
 
 html {
-  font-size: 62.5%;
+  font-size: 75%;
   box-sizing: border-box;
 }
 
 body {
-  font-family: 'Press Start 2P', sans-serif;
-  color: #eee;
-  background-color: #222;
+  font-family: fantasy, cursive, sans-serif;
+  color: brown;
+  background-color: burlywood;
   /* background-color: #60b347; */
 }
 
@@ -22,12 +22,12 @@ body {
 header {
   position: relative;
   height: 35vh;
-  border-bottom: 7px solid #eee;
+  border-bottom: 7px solid brown;
 }
 
 main {
   height: 65vh;
-  color: #eee;
+  color: brown;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -42,7 +42,7 @@ main {
 
 .right {
   width: 52rem;
-  font-size: 2rem;
+  font-size: 3rem;
 }
 
 /* ELEMENTS STYLE */
@@ -57,7 +57,7 @@ h1 {
 }
 
 .number {
-  background: #eee;
+  background: brown;
   color: #333;
   font-size: 6rem;
   width: 15rem;
@@ -70,7 +70,7 @@ h1 {
 }
 
 .between {
-  font-size: 1.4rem;
+  font-size: 3rem;
   position: absolute;
   top: 2rem;
   right: 2rem;
@@ -80,13 +80,14 @@ h1 {
   position: absolute;
   top: 2rem;
   left: 2rem;
+  font-size: 2rem;
 }
 
 .guess {
   background: none;
-  border: 4px solid #eee;
+  border: 4px solid brown;
   font-family: inherit;
-  color: inherit;
+  color: black;
   font-size: 5rem;
   padding: 2.5rem;
   width: 25rem;
@@ -97,9 +98,9 @@ h1 {
 
 .btn {
   border: none;
-  background-color: #eee;
+  background-color: brown;
   color: #222;
-  font-size: 2rem;
+  font-size: 3rem;
   font-family: inherit;
   padding: 2rem 3rem;
   cursor: pointer;
@@ -110,10 +111,24 @@ h1 {
 }
 
 .message {
+  color: black;
   margin-bottom: 8rem;
   height: 3rem;
 }
 
 .label-score {
+  color: black;
   margin-bottom: 2rem;
+}
+
+.label-score .score {
+  color: brown;
+}
+
+.label-highscore {
+  color: black;
+}
+
+.label-highscore .highscore {
+  color: brown;
 }
