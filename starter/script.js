@@ -1,5 +1,3 @@
-'use strict';
-
 const check = document.querySelector('.check');
 const guess = document.querySelector('.guess');
 const again = document.querySelector('.again');
@@ -14,19 +12,26 @@ const body = document.querySelector('body');
 let secretNumber;
 secretNumber = generateNumber();
 let currentPoint = 20;
-let hightPoint = 0;
+let highPoint = 0;
 
 function generateNumber() {
   return Math.floor(Math.random() * 20) + 2;
 }
 console.log(secretNumber);
 function checkHandler() {
+  if (!guess.value) {
+    message.textContent = `Please input number 
+        <<==
+        `;
+    message.style.whiteSpace = 'pre-line';
+    return;
+  }
   const hint =
     guess.value > secretNumber
-      ? 'To height'
+      ? 'Too high'
       : guess.value == secretNumber
       ? 'Correct!'
-      : 'To low ';
+      : 'Too low ';
   message.textContent = hint;
 
   if (hint === 'Correct!') {
@@ -34,23 +39,29 @@ function checkHandler() {
     number.textContent = secretNumber;
     message.style.color = 'brown';
 
-    const point = currentPoint >= hightPoint ? currentPoint : hightPoint;
-    hightPoint = point;
-    highscore.textContent = point;
+    highPoint = Math.max(currentPoint, highPoint);
+    highscore.textContent = highPoint;
   } else {
     currentPoint--;
     score.textContent = currentPoint;
+    if (currentPoint <= 0) {
+      message.textContent = 'Game over~';
+      check.disabled = true;
+    }
   }
 }
 
 function reset() {
-  generateNumber();
   secretNumber = generateNumber();
   body.style.background = 'burlywood';
   number.textContent = '?';
   guess.value = '';
   currentPoint = 20;
   score.textContent = currentPoint;
+  message.textContent = 'Start guessing...';
+  message.style.color = 'black';
+  check.disabled = false;
+
   console.log(secretNumber);
 }
 
