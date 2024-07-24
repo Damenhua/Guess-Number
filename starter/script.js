@@ -1,13 +1,13 @@
-const check = document.querySelector('.check');
-const guess = document.querySelector('.guess');
-const again = document.querySelector('.again');
-const message = document.querySelector('.message');
-const number = document.querySelector('.number');
-
-const score = document.querySelector('.score');
-const highscore = document.querySelector('.highscore');
-
-const body = document.querySelector('body');
+const elements = {
+  check: document.querySelector('.check'),
+  guess: document.querySelector('.guess'),
+  again: document.querySelector('.again'),
+  message: document.querySelector('.message'),
+  number: document.querySelector('.number'),
+  score: document.querySelector('.score'),
+  highscore: document.querySelector('.highscore'),
+  body: document.querySelector('body'),
+};
 
 let secretNumber;
 secretNumber = generateNumber();
@@ -18,52 +18,78 @@ function generateNumber() {
   return Math.floor(Math.random() * 20) + 2;
 }
 console.log(secretNumber);
+
 function checkHandler() {
-  if (!guess.value) {
-    message.textContent = `Please input number 
+  if (!elements.guess.value) {
+    elements.message.textContent = `Please input number 
         <<==
         `;
-    message.style.whiteSpace = 'pre-line';
+    elements.message.style.whiteSpace = 'pre-line';
     return;
   }
   const hint =
-    guess.value > secretNumber
+    elements.guess.value > secretNumber
       ? 'Too high'
-      : guess.value == secretNumber
+      : elements.guess.value == secretNumber
       ? 'Correct!'
       : 'Too low ';
-  message.textContent = hint;
+  elements.message.textContent = hint;
 
   if (hint === 'Correct!') {
-    body.style.background = 'green';
-    number.textContent = secretNumber;
-    message.style.color = 'brown';
+    elements.body.style.background = 'green';
+    elements.number.textContent = secretNumber;
+    elements.message.style.color = 'brown';
 
     highPoint = Math.max(currentPoint, highPoint);
-    highscore.textContent = highPoint;
+    elements.highscore.textContent = highPoint;
   } else {
     currentPoint--;
-    score.textContent = currentPoint;
+    elements.score.textContent = currentPoint;
     if (currentPoint <= 0) {
-      message.textContent = 'Game over~';
-      check.disabled = true;
+      elements.message.textContent = 'Game over~';
+      elements.check.disabled = true;
     }
   }
 }
 
+const Initial_State = {
+  secretNumber: generateNumber(),
+  currentPoint: 20,
+  numberContent: '?',
+  guessValue: '',
+  messageContent: 'Start guessing...',
+  messageColor: 'black',
+  background: 'burlywood',
+};
+
 function reset() {
   secretNumber = generateNumber();
-  body.style.background = 'burlywood';
-  number.textContent = '?';
-  guess.value = '';
-  currentPoint = 20;
-  score.textContent = currentPoint;
-  message.textContent = 'Start guessing...';
-  message.style.color = 'black';
-  check.disabled = false;
+  currentPoint = Initial_State.currentPoint;
+
+  const elemToReset = {
+    number: { textContent: Initial_State.numberContent },
+    guess: { value: Initial_State.guessValue },
+    score: { textContent: Initial_State.currentPoint },
+    message: {
+      textContent: Initial_State.messageContent,
+      style: { color: Initial_State.messageColor },
+    },
+    body: { style: { background: Initial_State.background } },
+    check: { disabled: false },
+  };
+
+  for (const [elemName, properties] of Object.entries(elemToReset)) {
+    for (const [prop, value] of Object.entries(properties)) {
+      if (prop === 'style') {
+        Object.assign(elements[elemName].style, value);
+      } else {
+        elements[elemName][prop] = value;
+      }
+    }
+  }
 
   console.log(secretNumber);
 }
 
-check.addEventListener('click', checkHandler);
-again.addEventListener('click', reset);
+elements.check.addEventListener('click', checkHandler);
+elements.again.addEventListener('click', reset);
